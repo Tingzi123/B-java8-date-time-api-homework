@@ -1,6 +1,7 @@
 package com.thoughtworks.capability.gtb;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,6 @@ import java.time.format.DateTimeFormatter;
  * @create 2020-05-19_18:43
  */
 public class MeetingSystemV3 {
-
     public static void main(String[] args) {
         String timeStr = "2020-04-01 14:30:00";
 
@@ -30,22 +30,14 @@ public class MeetingSystemV3 {
         //伦敦转北京时间
         ZonedDateTime londonToBeiJing = meetingTime.atZone(ZoneId.of("Asia/Shanghai"));
 
-        LocalDateTime now = LocalDateTime.now();
-
         //当前北京时间
         ZonedDateTime nowBeiJing=ZonedDateTime.now();
 
         if (nowBeiJing.isAfter(londonToBeiJing)) {
-            LocalDateTime tomorrow = now.plusDays(1);
-            int newDayOfYear = tomorrow.getDayOfYear();
-            meetingTime = meetingTime.withDayOfYear(newDayOfYear);
-
+            londonToBeiJing= londonToBeiJing.plus(Period.ofDays(1));
+            ZonedDateTime meetingTimeInChicago = londonToBeiJing.withZoneSameInstant(ZoneId.of(("America/Chicago")));
             // 格式化新会议时间
-
-            //伦敦转芝加哥时间
-            ZonedDateTime londonToChicago = meetingTime.atZone(ZoneId.of("America/Chicago"));
-
-            String showTimeStr = formatter.format(londonToChicago);
+            String showTimeStr = formatter.format(meetingTimeInChicago);
             System.out.println(showTimeStr);
         } else {
             System.out.println("会议还没开始呢");
