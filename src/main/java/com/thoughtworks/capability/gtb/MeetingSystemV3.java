@@ -38,9 +38,9 @@ public class MeetingSystemV3 {
             londonToBeiJing= londonToBeiJing.plus(Period.ofDays(1));
 
             //北京转芝加哥
-            ZonedDateTime meetingTimeInChicago = londonToBeiJing.withZoneSameInstant(ZoneId.of(("America/Chicago")));
+            ZonedDateTime beijingToChicago = londonToBeiJing.withZoneSameInstant(ZoneId.of(("America/Chicago")));
             // 格式化新会议时间
-            String showTimeStr = formatter.format(meetingTimeInChicago);
+            String showTimeStr = formatter.format(beijingToChicago);
             System.out.println(showTimeStr);
         } else {
             System.out.println("会议还没开始呢");
