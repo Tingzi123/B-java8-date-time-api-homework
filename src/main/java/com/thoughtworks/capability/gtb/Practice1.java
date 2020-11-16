@@ -10,7 +10,10 @@ import java.time.LocalDate;
  */
 public class Practice1 {
 
-  public static long getDaysBetweenNextLaborDay(LocalDate date) {
-    return 0;
-  }
+    public static long getDaysBetweenNextLaborDay(LocalDate date) {
+        if (date.getMonthValue() < 5) {
+            return LocalDate.of(date.getYear(), 5, 1).toEpochDay() - date.toEpochDay();
+        }
+        return LocalDate.of(date.getYear() + 1, 5, 1).toEpochDay() - date.toEpochDay();
+    }
 }
