@@ -28,13 +28,16 @@ public class MeetingSystemV3 {
         LocalDateTime meetingTime = LocalDateTime.parse(timeStr, formatter);
 
         //伦敦转北京时间
-        ZonedDateTime londonToBeiJing = meetingTime.atZone(ZoneId.of("Asia/Shanghai"));
+        ZonedDateTime london = meetingTime.atZone(ZoneId.of("Europe/London"));
+        ZonedDateTime londonToBeiJing = london.withZoneSameInstant(ZoneId.of("Asia/Shanghai"));
 
         //当前北京时间
         ZonedDateTime nowBeiJing=ZonedDateTime.now();
 
         if (nowBeiJing.isAfter(londonToBeiJing)) {
             londonToBeiJing= londonToBeiJing.plus(Period.ofDays(1));
+
+            //北京转芝加哥
             ZonedDateTime meetingTimeInChicago = londonToBeiJing.withZoneSameInstant(ZoneId.of(("America/Chicago")));
             // 格式化新会议时间
             String showTimeStr = formatter.format(meetingTimeInChicago);
